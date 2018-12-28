@@ -14,7 +14,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-    timetracker.cpp
+    timetracker.cpp \
+    log_viewer.cpp \
+    duty_time.cpp
 
 RESOURCES += qml.qrc
 
@@ -30,4 +32,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    timetracker.h
+    timetracker.h \
+    log_viewer.h \
+    duty_time.h
