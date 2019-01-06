@@ -25,7 +25,7 @@ ApplicationWindow {
     Pane {
         id: pane
         x: 18
-        y: 18
+        y: 166
         width: 444
         height: 90
         Material.elevation: 2
@@ -45,7 +45,7 @@ ApplicationWindow {
     Pane {
         id: pane1
         x: 18
-        y: 124
+        y: 275
         width: 444
         height: 90
         Material.elevation: 2
@@ -65,15 +65,15 @@ ApplicationWindow {
     Pane {
         id: pane2
         x: 18
-        y: 230
+        y: 385
         width: 444
-        height: 275
+        height: 119
         Material.elevation: 2
 
         Button {
             id: button
             x: 149
-            y: 89
+            y: 10
             width: 123
             height: 73
             text: qsTr(Tracker.get_button_text())
@@ -97,7 +97,18 @@ ApplicationWindow {
             x: 170
             y: 16
             text: qsTr("View Log")
-            onClicked: popup.open()
+            onClicked: {
+                popup.open()
+                Viewer.load_local()
+                Viewer.update_inactive_tables()
+                //morning_inactive.height_base = 65;
+                for (var i = 0; i < 42; i ++)
+                {
+                    active_time.itemAt(i).childAt(0,0).height = Viewer.get_morning_inactive((i/7), (i%7)) * 0.65;
+                    active_time.itemAt(i).childAt(44,65).height = Viewer.get_evening_inactive((i/7), (i%7)) * 0.65;
+                    active_time.itemAt(i).childAt(44,65).y = 65 - Viewer.get_evening_inactive((i/7), (i%7)) * 0.65;
+                }
+            }
         }
     }
 
@@ -118,54 +129,94 @@ ApplicationWindow {
             spacing: 1
             x: 31
             y: 70
-            Rectangle { color: "#e8e8e8"; width: 44; height: 65 }
-            Rectangle { color: "#e8e8e8"; width: 44; height: 65 }
-            Rectangle { color: "#e8e8e8"; width: 44; height: 65 }
-            Rectangle { color: "#e8e8e8"; width: 44; height: 65 }
-            Rectangle { color: "#e8e8e8"; width: 44; height: 65 }
-            Rectangle { color: "#e8e8e8"; width: 44; height: 65 }
-            Rectangle { color: "#e8e8e8"; width: 44; height: 65 }
 
-            Rectangle { color: "#e8e8e8"; width: 44; height: 65 }
-            Rectangle { color: "#e8e8e8"; width: 44; height: 65 }
-            Rectangle { color: "#e8e8e8"; width: 44; height: 65 }
-            Rectangle { color: "#e8e8e8"; width: 44; height: 65 }
-            Rectangle { color: "#e8e8e8"; width: 44; height: 65 }
-            Rectangle { color: "#e8e8e8"; width: 44; height: 65 }
-            Rectangle { color: "#e8e8e8"; width: 44; height: 65 }
+            Repeater {
+                id: active_time
+                model: 42;
+                delegate: Rectangle {
+                    color: "#8BC34A";
+                    width: 44;
+                    height: 65;
+                    Rectangle {color: "#C5E1A5"; width: 44; height: 65}
+                    Rectangle {color: "#C5E1A5"; width: 44; height: 65; x:44; y:65}
+                }
+            }
 
-            Rectangle { color: "#e8e8e8"; width: 44; height: 65 }
-            Rectangle { color: "#e8e8e8"; width: 44; height: 65 }
-            Rectangle { color: "#e8e8e8"; width: 44; height: 65 }
-            Rectangle { color: "#e8e8e8"; width: 44; height: 65 }
-            Rectangle { color: "#e8e8e8"; width: 44; height: 65 }
-            Rectangle { color: "#e8e8e8"; width: 44; height: 65 }
-            Rectangle { color: "#e8e8e8"; width: 44; height: 65 }
+            /*
+            Rectangle { color: "#8BC34A"; width: 44; height: 65 }
+            Rectangle { color: "#8BC34A"; width: 44; height: 65 }
+            Rectangle { color: "#8BC34A"; width: 44; height: 65 }
+            Rectangle { color: "#8BC34A"; width: 44; height: 65 }
+            Rectangle { color: "#8BC34A"; width: 44; height: 65 }
+            Rectangle { color: "#8BC34A"; width: 44; height: 65 }
+            Rectangle { color: "#8BC34A"; width: 44; height: 65 }
 
-            Rectangle { color: "#e8e8e8"; width: 44; height: 65 }
-            Rectangle { color: "#e8e8e8"; width: 44; height: 65 }
-            Rectangle { color: "#e8e8e8"; width: 44; height: 65 }
-            Rectangle { color: "#e8e8e8"; width: 44; height: 65 }
-            Rectangle { color: "#e8e8e8"; width: 44; height: 65 }
-            Rectangle { color: "#e8e8e8"; width: 44; height: 65 }
-            Rectangle { color: "#e8e8e8"; width: 44; height: 65 }
+            Rectangle { color: "#8BC34A"; width: 44; height: 65 }
+            Rectangle { color: "#8BC34A"; width: 44; height: 65 }
+            Rectangle { color: "#8BC34A"; width: 44; height: 65 }
+            Rectangle { color: "#8BC34A"; width: 44; height: 65 }
+            Rectangle { color: "#8BC34A"; width: 44; height: 65 }
+            Rectangle { color: "#8BC34A"; width: 44; height: 65 }
+            Rectangle { color: "#8BC34A"; width: 44; height: 65 }
 
-            Rectangle { color: "#e8e8e8"; width: 44; height: 65 }
-            Rectangle { color: "#e8e8e8"; width: 44; height: 65 }
-            Rectangle { color: "#e8e8e8"; width: 44; height: 65 }
-            Rectangle { color: "#e8e8e8"; width: 44; height: 65 }
-            Rectangle { color: "#e8e8e8"; width: 44; height: 65 }
-            Rectangle { color: "#e8e8e8"; width: 44; height: 65 }
-            Rectangle { color: "#e8e8e8"; width: 44; height: 65 }
+            Rectangle { color: "#8BC34A"; width: 44; height: 65 }
+            Rectangle { color: "#8BC34A"; width: 44; height: 65 }
+            Rectangle { color: "#8BC34A"; width: 44; height: 65 }
+            Rectangle { color: "#8BC34A"; width: 44; height: 65 }
+            Rectangle { color: "#8BC34A"; width: 44; height: 65 }
+            Rectangle { color: "#8BC34A"; width: 44; height: 65 }
+            Rectangle { color: "#8BC34A"; width: 44; height: 65 }
 
-            Rectangle { color: "#e8e8e8"; width: 44; height: 65 }
-            Rectangle { color: "#e8e8e8"; width: 44; height: 65 }
-            Rectangle { color: "#e8e8e8"; width: 44; height: 65 }
-            Rectangle { color: "#e8e8e8"; width: 44; height: 65 }
-            Rectangle { color: "#e8e8e8"; width: 44; height: 65 }
-            Rectangle { color: "#e8e8e8"; width: 44; height: 65 }
-            Rectangle { color: "#e8e8e8"; width: 44; height: 65 }
+            Rectangle { color: "#8BC34A"; width: 44; height: 65 }
+            Rectangle { color: "#8BC34A"; width: 44; height: 65 }
+            Rectangle { color: "#8BC34A"; width: 44; height: 65 }
+            Rectangle { color: "#8BC34A"; width: 44; height: 65 }
+            Rectangle { color: "#8BC34A"; width: 44; height: 65 }
+            Rectangle { color: "#8BC34A"; width: 44; height: 65 }
+            Rectangle { color: "#8BC34A"; width: 44; height: 65 }
+
+            Rectangle { color: "#8BC34A"; width: 44; height: 65 }
+            Rectangle { color: "#8BC34A"; width: 44; height: 65 }
+            Rectangle { color: "#8BC34A"; width: 44; height: 65 }
+            Rectangle { color: "#8BC34A"; width: 44; height: 65 }
+            Rectangle { color: "#8BC34A"; width: 44; height: 65 }
+            Rectangle { color: "#8BC34A"; width: 44; height: 65 }
+            Rectangle { color: "#8BC34A"; width: 44; height: 65 }
+
+            Rectangle { color: "#8BC34A"; width: 44; height: 65 }
+            Rectangle { color: "#8BC34A"; width: 44; height: 65 }
+            Rectangle { color: "#8BC34A"; width: 44; height: 65 }
+            Rectangle { color: "#8BC34A"; width: 44; height: 65 }
+            Rectangle { color: "#8BC34A"; width: 44; height: 65 }
+            Rectangle { color: "#8BC34A"; width: 44; height: 65 }
+            Rectangle { color: "#8BC34A"; width: 44; height: 65 }
+            */
         }
+
+/*
+        Grid {
+            id: morning_inactive_grid
+            rows: 6
+            columns: 7
+            spacing: 1
+            x: 31
+            y: 70
+
+            Repeater {
+                id: morning_inactive;
+                model: 42;
+                Rectangle {
+                    color: "#C5E1A5";
+                    width: 44;
+                    height: 65;
+                    Text {
+                        id: name
+                        text: index
+                    }
+                }
+            }
+        }
+*/
 
         GridLayout {
             x: 5
@@ -208,22 +259,41 @@ ApplicationWindow {
             width: 30
             height: 30
             text: qsTr("<")
-            background: Material.Grey
             onClicked: {
                 if (grid.month == Calendar.January)
                 {
                     grid.month = Calendar.December;
                     grid.year = grid.year - 1;
+
+                    Viewer.change_focus_month(12);
+                    Viewer.change_focus_year(grid.year);
                 }
                 else
                 {
-                grid.month = grid.month - 1
+                    grid.month = grid.month - 1;
+                    Viewer.change_focus_month(grid.month);
                 }
+                Viewer.update_inactive_tables();
+
+                for (var i = 0; i < 42; i ++)
+                {
+                    active_time.itemAt(i).childAt(0,0).height = Viewer.get_morning_inactive((i/7), (i%7)) * 0.65;
+
+                }
+            }
+
+            BorderImage {
+                id: borderImage
+                x: 0
+                y: 0
+                width: 480
+                height: 145
+                source: "DSC04785.JPG"
             }
         }
 
         Text {
-            id: month
+            id: month_title
             x: 40
             y: 0
             width: 300
@@ -241,19 +311,30 @@ ApplicationWindow {
             width: 30
             height: 30
             text: qsTr(">")
-            background: Material.Grey
             onClicked:
             {
                 if (grid.month == Calendar.December)
                 {
                     grid.month = Calendar.January;
                     grid.year = grid.year + 1;
+
+                    Viewer.change_focus_month(1);
+                    Viewer.change_focus_year(grid.year);
                 }
                 else
                 {
-                grid.month = grid.month + 1
+                    grid.month = grid.month + 1;
+                    Viewer.change_focus_month(grid.month);
+                }
+                Viewer.update_inactive_tables();
+
+                for (var i = 0; i < 42; i ++)
+                {
+                    active_time.itemAt(i).childAt(0,0).height = Viewer.get_morning_inactive((i/7), (i%7)) * 0.65;
+
                 }
             }
         }
     }
+
 }

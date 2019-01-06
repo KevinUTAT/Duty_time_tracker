@@ -15,6 +15,7 @@ int main(int argc, char *argv[])
     log_viewer viewer;
 
     QQuickView view;
+
     view.engine()->rootContext()->setContextProperty("Tracker", &tracker);
     view.engine()->rootContext()->setContextProperty("Viewer", &viewer);
     view.setSource(QUrl(QStringLiteral("qrc:/main.qml")));
